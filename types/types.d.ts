@@ -1,0 +1,3 @@
+interface ExampleInterface {
+    foo: 'bar'
+}

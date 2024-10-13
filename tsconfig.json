@@ -1,0 +1,25 @@
+{
+    "compilerOptions": {
+        "target": "ES2015",
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "strict": true,
+        "noUnusedLocals": true,
+        "removeComments": true,
+        "noImplicitAny": true,
+        "sourceMap": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "jsx": "react",
+        "skipLibCheck": true
+    },
+    "include": [
+        "src/**/*",
+        "types/*"
+    ],
+    "exclude": [
+        "node_modules",
+        "src/hooks/*"
+    ]
+}

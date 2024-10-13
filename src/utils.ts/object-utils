@@ -1,0 +1,13 @@
+export const countKeys = (o: Object) => {
+    let n = 0;
+    for (let k in o) { if(o.hasOwnProperty(k)) ++n }
+    return n;
+}
+
+export const hasKeys = (o: Object) => {
+    // @ts-ignore
+    for (let k in o) {
+        return true;
+    }
+    return false;
+}

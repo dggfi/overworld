@@ -1,0 +1,8 @@
+.env
+package-lock.json
+dist/*
+logs/*
+node_modules/*
+site/*
+src/test/*
+src/styles/fonts/*

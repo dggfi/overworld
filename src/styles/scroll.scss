@@ -1,0 +1,11 @@
+@layer utilities {
+    // Chrome, Safari, Opera
+    .no-scrollbar::-webkit-scrollbar {
+        display: none
+    }
+    // IE, Edge, FF
+    .no-scrollbar {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}

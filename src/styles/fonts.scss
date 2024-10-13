@@ -1,0 +1,301 @@
+// ** Text - Regular sans
+
+
+@if ($env == 'development') {
+    .text-teko {
+        font-family: "Teko", ;
+    }
+
+    @font-face {
+        font-family: "Teko";
+        src: url("fonts/Teko-Regular.ttf");
+    }
+
+    .text-fira-sans {
+        font-family: "FiraSans", ;
+    }
+    
+    @font-face {
+        font-family: "FiraSans";
+        src: url("fonts/FiraSans-Regular.ttf");
+    }
+    
+    .text-fira-roboto {
+        font-family: "Roboto", ;
+    }
+    
+    @font-face {
+        font-family: "Roboto";
+        src: url("fonts/Roboto-Medium.ttf");
+    }
+    
+    @font-face {
+        font-family: "Kunika";
+        src: url("fonts/Kunika.ttf");
+    }
+    
+    .text-kunika {
+        font-family: "Kunika";
+    }
+    
+    
+    
+    // ** Text - Regular Serif
+    
+    .text-cinzel {
+        font-family: "Cinzel Decorative", cursive;
+    }
+    
+    @font-face {
+        font-family: "Cinzel Decorative";
+        src: url("fonts/Cinzel-Regular.ttf");
+    }
+    
+    .text-garamond {
+        font-family: "garamond", ;
+    }
+    
+    @font-face {
+        font-family: "Garamond";
+        src: url("fonts/EBGaramond-VariableFont_wght.ttf");
+    }
+    
+    
+    
+    
+    
+    // ** Display & Print
+    
+    @font-face {
+        font-family: "Allura", ;
+        src: url("fonts/Allura-Regular.ttf");
+    }
+    
+    .text-allura {
+        font-family: "Allura", ;
+    }
+    
+    @font-face {
+        font-family: "Jaro";
+        src: url("fonts/Jaro-Regular-VariableFont_opsz.ttf");
+    }
+    
+    .text-jaro {
+        font-family: "Jaro";
+    }
+    
+    @font-face {
+        font-family: "Poetsen One";
+        src: url("fonts/PoetsenOne-Regular.ttf");
+    }
+    
+    .text-poetsen-one {
+        font-family: "Poetsen One";
+    }
+    
+    
+    @font-face {
+        font-family: "Pacifico";
+        src: url("fonts/Pacifico-Regular.ttf");
+    }
+    
+    .text-revamped {
+        font-family: "Pacifico";
+    }
+    
+    @font-face {
+        font-family: "Racing", ;
+        src: url("fonts/RacingSansOne-Regular.ttf");
+    }
+    
+    .text-racing {
+        font-family: "Racing", ;
+    }
+    
+    @font-face {
+        font-family: "Rust", ;
+        src: url("fonts/NexaRustHandmade-Extended.otf") format("opentype");
+    }
+    
+    .text-rust {
+        font-family: "Rust", ;
+    }
+    
+    @font-face {
+        font-family: "Specialisation", ;
+        src: url("fonts/Specialisation.ttf");
+    }
+    
+    .text-specialisation {
+        font-family: "Specialisation", serif;
+    }
+    
+    @font-face {
+        font-family: "Vanosky", ;
+        src: url("fonts/Vanosky.otf");
+    }
+    
+    .text-vanosky {
+        font-family: "vanosky", serif;
+    }
+    
+    @font-face {
+        font-family: "Vanosky Thin", ;
+        src: url("fonts/Vanosky-Thin.otf");
+    }
+    
+    .text-vanosky-thin {
+        font-family: "vanosky Thin", serif;
+    }
+    
+    @font-face {
+        font-family: "VT323", ;
+        src: url("fonts/VT323-Regular.ttf");
+    }
+    
+    .text-vt {
+        font-family: "VT323"
+    }
+    
+    
+    
+    // ** Purely for Display
+    
+    .text-bungee {
+        font-family: "Bungee", ;
+    }
+    
+    @font-face {
+        font-family: "Bungee", ;
+        src: url("fonts/BungeeShade-Regular.ttf");
+    }
+    
+    .text-cyberillic {
+        font-family: "Cyberillic", serif;
+    }
+    
+    @font-face {
+        font-family: "Cyberillic", ;
+        src: url("fonts/ST-Cyberillic.otf");
+    }
+    
+    .text-gincu-swashes {
+        font-family: "Gincu Swashes", ;
+    }
+    
+    @font-face {
+        font-family: "Gincu";
+        src: url("fonts/Gincu.ttf");
+    }
+    
+    .text-halpine {
+        font-family: "Halpine";
+    }
+    
+    @font-face {
+        font-family: "Halpine";
+        src: url("fonts/HighAlpine.otf");
+    }
+    
+    .text-gincu {
+        font-family: "Gincu", ;
+    }
+    
+    @font-face {
+        font-family: "Gincu Swashes";
+        src: url("fonts/Gincu-Swashes.ttf");
+    }
+    
+    @font-face {
+        font-family: "Masiku";
+        src: url("fonts/Masiku.ttf");
+    }
+    
+    .text-masiku {
+        font-family: "Masiku", ;
+    }
+    
+    @font-face {
+        font-family: "Novem", ;
+        src: url("fonts/Novem.ttf");
+    }
+    
+    .text-novem {
+        font-family: "Novem", serif;
+    }
+    
+    
+    @font-face {
+        font-family: "Revamped";
+        src: url("fonts/Revamped.ttf");
+    }
+    
+    .text-revamped {
+        font-family: "Revamped";
+    }
+    
+    @font-face {
+        font-family: "Rubik Mono";
+        src: url("fonts/RubikMonoOne-Regular.ttf");
+    }
+    
+    .text-rubik-mono {
+        font-family: "Rubik Mono";
+    }
+    
+    .text-stencil {
+        font-family: 'Saira Stencil One', cursive;
+    }
+    
+    @font-face {
+        font-family: "Saira Stencil One";
+        src: url("fonts/SairaStencilOne-Regular.ttf");
+    }
+    
+    @font-face {
+        font-family: "Synkopy", ;
+        src: url("fonts/Synkopy-Regular.otf");
+    }
+    
+    .text-synkopy {
+        font-family: "Synkopy";
+    }
+    
+    @font-face {
+        font-family: "Synkopy Flipside", ;
+        src: url("fonts/Synkopy-Flipside.otf");
+    }
+    
+    .text-synkopy-flipside {
+        font-family: "Synkopy Flipside", serif;
+    }
+    
+    @font-face {
+        font-family: "Vegabond", ;
+        src: url("fonts/Vegabond-Regular.ttf");
+    }
+    
+    .text-vegabond {
+        font-family: "Vegabond", serif;
+    }
+    
+    @font-face {
+        font-family: "Vermin";
+        src: url("fonts/VerminVibesMertRegular-1Mxg.ttf");
+    }
+    
+    .text-vermin {
+        font-family: "Vermin", ;
+    }
+    
+    @font-face {
+        font-family: "Vermin Dos";
+        src: url("fonts/Vermin-Vibes-Mert.ttf");
+    }
+    
+    .text-vermin-dos {
+        font-family: "Vermin Dos", ;
+    }
+} @else {
+    // Fonts you want to use in production go here
+}
