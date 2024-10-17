@@ -7,7 +7,7 @@ const Main: React.FC = () => {
 
     return (
         <main>
-            {message}            
+            <div>{message}</div>
         </main>
     )
 }

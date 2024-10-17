@@ -9,3 +9,10 @@ Copy used font assets within the `src/styles/fonts.scss` 'if' clause to the insi
 
 ### TO DO
 + implement -free flag
++ Hot-loading
+
+### TO WATCH
++ Role of native module support at future date
+
+### Dev notes-to-self
++ Extension resolvers in electron webpack configs appear to be absolutely mandatory... what a headache.

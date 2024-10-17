@@ -1,3 +1,0 @@
-interface ExampleInterface {
-    foo: 'bar'
-}

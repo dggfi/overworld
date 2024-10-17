@@ -9,7 +9,6 @@ import { BrowserRouter } from 'react-router-dom';
 import store from './store/store';
 
 const App: React.FC = () => {
-
     return (
         <Provider store={store}>
             <BrowserRouter>
