@@ -1,6 +1,6 @@
 # Output / misc.
 site/*
-src/test/*
+src/components/test/*
 out/
 dist/*
 

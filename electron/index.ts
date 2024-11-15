@@ -1,4 +1,4 @@
-import { app, BrowserWindow } from 'electron';
+import { app, BrowserWindow, globalShortcut, Menu, MenuItem } from 'electron';
 // import electronReload from 'electron-reload';
 // electronReload(__dirname, {});
 // Electron magic constants
@@ -10,7 +10,16 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-const createWindow = (): void => {
+// Window
+const createWindow = async (): Promise<void> => {
+  // Shortcuts
+  globalShortcut.register('CommandOrControl+Shift+E', () => {
+    app.quit();
+  })
+  globalShortcut.register('CommandOrControl+Shift+C', () => {
+    mainWindow.webContents.toggleDevTools();
+  })
+
   const mainWindow = new BrowserWindow({
     height: 600,
     width: 800,
@@ -21,9 +30,27 @@ const createWindow = (): void => {
 
   mainWindow.loadURL(MAIN_WINDOW_WEBPACK_ENTRY);
 
-  mainWindow.webContents.openDevTools();
+  // mainWindow.webContents.openDevTools();
 };
 
+// Menu
+// Menu.setApplicationMenu(null);
+const menu = new Menu();
+menu.append(new MenuItem({
+  label: 'Electron',
+  submenu: [{
+    role: 'help',
+    accelerator: process.platform === 'darwin' ? 'Alt+Cmd+I' : 'Alt+Shift+I',
+    click: () => { console.log('Hello, world!') }
+  }]
+}))
+menu.append(new MenuItem({
+  
+}))
+Menu.setApplicationMenu(menu);
+
+
+// App events
 app.on('ready', createWindow);
 
 app.on('window-all-closed', () => {
