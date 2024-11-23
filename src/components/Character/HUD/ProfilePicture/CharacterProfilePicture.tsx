@@ -68,8 +68,6 @@ const CharacterProfilePicture: React.FC = ({ }) => {
         setSrc('');
     }, [])
 
-    console.log(width.get())
-
     return (
         <div
             className='relative'

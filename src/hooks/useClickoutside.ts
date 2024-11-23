@@ -1,20 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { RefObject, useEffect } from 'react';
 
 
-const useClickoutside = (cb: Function) => {
-    const ref = useRef<any>();
-
+const useClickoutside = (elemRef: RefObject<HTMLElement>, predicate: (...args: any[]) => boolean, cb: Function, deps: any[]) => {
+    // This is actually more like useMousedownOutside
     useEffect(() => {
-        const handleClick = (e: any) => {
-            if (ref.current && !ref.current.contains(e.target)) cb()
+        // in case the user doesn't want the useClickoutside to always be active
+        if (predicate()) {
+            const handleClick = (e: any) => {
+                if (elemRef.current && !elemRef.current.contains(e.target)) cb()
+            }
+    
+            document.addEventListener('mousedown', handleClick);
+            return () => document.removeEventListener('mousedown', handleClick)
         }
-
-        document.addEventListener('click', handleClick);
-        return () => document.removeEventListener('click', handleClick)
-
-    }, [ref])
-
-    return ref;
+    }, deps)
 }
 
 export default useClickoutside;

@@ -8,7 +8,6 @@ Official project uses a number of paid font & SVG assets. If you do not have lic
 + Copy used font assets within the `src/styles/fonts.scss` 'if' clause to the inside of the 'else' clause.
 + If you use Fontawesome, import each SVG individually
 
-
 ### Application Global Commands
 + `Ctrl+Shift+E` to exit
 + Tap `CTRL` to access an element's controls

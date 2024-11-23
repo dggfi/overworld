@@ -53,11 +53,8 @@ const TransformableFrame: React.FC<{ children: JSX.Element }> = ({ children }) =
     useEffect(() => {
         setTimeout(() => {
             let styles = getComputedStyle(resizableRef.current)
-            console.log(styles.width)
-            console.log(styles.height)
             minWidth.set(parseInt(styles.width, 10))
             minHeight.set(parseInt(styles.height, 10))
-            console.log(`mW: ${minWidth.get()} / mH: ${minHeight.get()}`)
         }, 500)
     }, [children])
 

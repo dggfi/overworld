@@ -1,11 +1,13 @@
 import { AnimatePresence, MotionValue } from 'framer-motion';
-import React, { MouseEvent, Ref, useCallback, useEffect, useRef, useState } from 'react';
+import React, { MouseEvent, Ref, useEffect, useRef, useState } from 'react';
 import ResizerLeft from './ResizerLeft';
 import ResizerRight from './ResizerRight';
 import ResizerTop from './ResizerTop';
 import ResizerBottom from './ResizerBottom';
 import { MouseDispatchRegister } from '../../../../types/transformable';
 import { setActiveControlsId } from '../../../store/controls';
+import useKeyControls from '../../../hooks/useKeyControls';
+import useClickoutside from '../../../hooks/useClickoutside';
 
 interface ResizerMainProps {
     motionValues: { [key: string]: MotionValue },
@@ -27,9 +29,7 @@ const Resizer: React.FC<ResizerMainProps> = ({ parentId, controlsActive, parentR
         }
     }, [controlsActive])
 
-    // Controls
-    // Maintain exclusive contro
-
+    // Maintain exclusive control
     useEffect(() => {
         if (resizeActive) {
             for (let k in siblingSetters) {
@@ -39,52 +39,27 @@ const Resizer: React.FC<ResizerMainProps> = ({ parentId, controlsActive, parentR
             }
         }
     }, [resizeActive])
-
-    const handleKeys = useCallback((e: KeyboardEvent) => {
+    
+    // Key Controls
+    const { mountControls, unmountControls } = useKeyControls((e: KeyboardEvent) => {
         if (e.ctrlKey && e.key === 'r') {
             setResizeActive(!resizeActive)
             setActiveControlsId(parentId)
         }
-    }, [resizeActive])
+    }, [resizeActive], focused)
 
-    // Controls - Mounting
-    const mountControls = useCallback(() => {
-        window.addEventListener('keydown', handleKeys)
-    }, [handleKeys])
-
-    const unmountControls = useCallback(() => {
-        window.removeEventListener('keydown', handleKeys)
-    }, [handleKeys])
-
-    // Ensure controls are mounted & unmounted
-    useEffect(() => {
-        if (focused.current) {
-            mountControls();
-        }
-    }, [mountControls])
-
-    // + click outside
-    useEffect(() => {
+    useClickoutside(
         // @ts-ignore
-        if (focused.current && parentRef.current) {
-            const handleMouseDown = (e: globalThis.MouseEvent) => {
-                // @ts-ignore
-                if (!parentRef.current.contains(e.target)) {
-                    unmountControls();
-                    setResizeActive(false);
-                    focused.current = false;
-                }
-            }
-
-            window.addEventListener('mousedown', handleMouseDown);
-            return () => {
-                window.removeEventListener('mousedown', handleMouseDown)
-                unmountControls();
-            };
-        }
-
-        return unmountControls;
-    }, [unmountControls])
+        parentRef,
+        // @ts-ignore
+        () => (focused.current && parentRef.current!),
+        () => {
+            unmountControls();
+            setResizeActive(false);
+            focused.current = false;
+        },
+        [unmountControls]
+    )
 
     // Register with parent
     useEffect(() => {
