@@ -1,5 +1,5 @@
 import { motion, MotionValue, useMotionValue } from 'framer-motion';
-import React, { MouseEventHandler, useEffect, useRef, useState } from 'react';
+import React, { MouseEventHandler, useEffect, useRef } from 'react';
 import Resizer from './Resizer/Resizer';
 import { MouseDispatchRegister } from '../../../types/transformable';
 import { v4 as uuidv4 } from 'uuid';
@@ -11,47 +11,23 @@ const TransformableFrame: React.FC<{ children: JSX.Element }> = ({ children }) =
     // Resize, Translate, Rotate
 
     // const renderCount = useRef<number>(0);
-    const width = useMotionValue<string | number>('auto');
-    const height = useMotionValue<string | number>('auto');
-    const left = useMotionValue<string | number | null>('50%');
+    const width = useMotionValue<string | number>('min-content');
+    const height = useMotionValue<string | number>('min-content');
+    const left = useMotionValue<string | number | null>(null);
     const right = useMotionValue<string | number | null>(null);
     const top = useMotionValue<string | number | null>(null);
     const bottom = useMotionValue<string | number | null>(null);
-    const minWidth = useMotionValue<string | number | null>(null);
-    const minHeight = useMotionValue<string | number | null>(null);
+    const minWidth = useMotionValue<string | number | null>('min-content');
+    const minHeight = useMotionValue<string | number | null>('min-content');
 
-    const [motionValues, setMotionValues] = useState<{ [key: string]: MotionValue }>({
+    const motionValues = useRef<{ [key: string]: MotionValue }>({
         width, height,
         left, right,
         top, bottom,
         minWidth, minHeight
     })
 
-    const [resizableStyles, setResizableStyles] = useState<CSSStyleDeclaration>(null!)
-
     const resizableRef = useRef<HTMLDivElement>(null!);
-
-    // the styles declaration will probably never change,
-    // wondering if the resizableRef dependency is pointless
-    useEffect(() => {
-        const styles = window.getComputedStyle(resizableRef.current);
-        setResizableStyles(styles);
-        width.jump(parseInt(styles.width, 10));
-        height.jump(parseInt(styles.height, 10));
-        left.jump(parseInt(styles.left, 10));
-        right.jump(parseInt(styles.right, 10));
-        top.jump(parseInt(styles.top, 10));
-        bottom.jump(parseInt(styles.bottom, 10));
-        minWidth.jump(width.get())
-        minHeight.jump(height.get())
-        let newValues = {
-            width, height,
-            left, right,
-            top, bottom,
-            minWidth, minHeight
-        }
-        setMotionValues(newValues)
-    }, [resizableRef])
 
     // Callback buckets
     const dispatchRegister = useRef<MouseDispatchRegister>({});
@@ -59,47 +35,59 @@ const TransformableFrame: React.FC<{ children: JSX.Element }> = ({ children }) =
         Object.values(dispatchRegister.current).forEach((v: MouseEventHandler) => v(e))
     }
 
-    // State
+    // Allow controllers some control over siblings
     const activeSetters = useRef<{ [key: string]: React.Dispatch<boolean> }>({})
 
-    // Controls
+    // Global Controls
+    // Currently only one set of controls are allowed at a time
     const id = useRef<string>(uuidv4());
     const controlsId = useSelector(getActiveControlsId);
     const controlsActive = id.current === controlsId;
-    console.log(`id: ${id.current}\n controlsId: ${controlsId}\n controlsActive: ${controlsActive}`)
+    // console.log(`id: ${id.current}\n controlsId: ${controlsId}\n controlsActive: ${controlsActive}`)
+
+    // ::HACK
+    // the minWidth motion value returns min-content; this is not a useful value
+    // for comparison operators. It must be converted to a number after all children
+    // components have mounted. 500ms are provided to reach first paint; more may be
+    // needed.
+    useEffect(() => {
+        setTimeout(() => {
+            let styles = getComputedStyle(resizableRef.current)
+            console.log(styles.width)
+            console.log(styles.height)
+            minWidth.set(parseInt(styles.width, 10))
+            minHeight.set(parseInt(styles.height, 10))
+            console.log(`mW: ${minWidth.get()} / mH: ${minHeight.get()}`)
+        }, 500)
+    }, [children])
 
     return (
         <motion.div
             ref={resizableRef}
             className='absolute select-none min-w-min min-h-min focus:ring-0'
             style={{
-                width,
-                height,
-                left,
-                right,
-                top,
-                bottom
+                width, height,
+                left, right,
+                top, bottom
             }}
             layout
             onMouseEnter={dispatchOnMouseEnter}
         >
             {children}
-                <Resizer
-                    parentId={id.current}
-                    controlsActive={controlsActive}
-                    parentRef={resizableRef}
-                    parentStyles={resizableStyles}
-                    motionValues={motionValues}
-                    dispatchRegister={dispatchRegister.current}
-                    siblingSetters={activeSetters.current} />
-                <Translater
-                    parentId={id.current}
-                    controlsActive={controlsActive}
-                    parentRef={resizableRef}
-                    parentStyles={resizableStyles}
-                    motionValues={motionValues}
-                    dispatchRegister={dispatchRegister.current}
-                    siblingSetters={activeSetters.current} />
+            <Resizer
+                parentId={id.current}
+                controlsActive={controlsActive}
+                parentRef={resizableRef}
+                motionValues={motionValues.current}
+                dispatchRegister={dispatchRegister.current}
+                siblingSetters={activeSetters.current} />
+            <Translater
+                parentId={id.current}
+                controlsActive={controlsActive}
+                parentRef={resizableRef}
+                motionValues={motionValues.current}
+                dispatchRegister={dispatchRegister.current}
+                siblingSetters={activeSetters.current} />
         </motion.div >
     )
 }

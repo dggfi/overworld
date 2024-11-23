@@ -9,7 +9,6 @@ import { setActiveControlsId } from '../../../store/controls';
 
 interface ResizerMainProps {
     motionValues: { [key: string]: MotionValue },
-    parentStyles: CSSStyleDeclaration,
     parentRef: Ref<HTMLDivElement>,
     dispatchRegister: MouseDispatchRegister,
     parentId: string,
@@ -17,7 +16,7 @@ interface ResizerMainProps {
     siblingSetters: { [key: string]: React.Dispatch<boolean> }
 }
 
-const Resizer: React.FC<ResizerMainProps> = ({ parentId, controlsActive, parentRef, parentStyles, motionValues, dispatchRegister, siblingSetters }) => {
+const Resizer: React.FC<ResizerMainProps> = ({ parentId, controlsActive, parentRef, motionValues, dispatchRegister, siblingSetters }) => {
     const [resizeActive, setResizeActive] = useState<boolean>(false);
     const focused = useRef<boolean>(false);
 
@@ -101,14 +100,22 @@ const Resizer: React.FC<ResizerMainProps> = ({ parentId, controlsActive, parentR
         return () => { delete siblingSetters['resizer'] }
     }, [])
 
+    // @ts-ignore
+    const targetStyles = useRef(null!);
+
+    useEffect(() => {
+        // @ts-ignore
+        targetStyles.current = getComputedStyle(parentRef.current)
+    }, [])
+
     return (
         <AnimatePresence mode='sync'>
             {(resizeActive) &&
                 <>
-                    <ResizerLeft key={'left'} parentRef={parentRef} parentStyles={parentStyles} motionValues={motionValues} />
-                    <ResizerRight key={'right'} parentRef={parentRef} parentStyles={parentStyles} motionValues={motionValues} />
-                    <ResizerTop key={'top'} parentRef={parentRef} parentStyles={parentStyles} motionValues={motionValues} />
-                    <ResizerBottom key={'bottom'} parentRef={parentRef} parentStyles={parentStyles} motionValues={motionValues} />
+                    <ResizerLeft key={'left'} parentRef={parentRef} parentStyles={targetStyles.current} motionValues={motionValues} />
+                    <ResizerRight key={'right'} parentRef={parentRef} parentStyles={targetStyles.current} motionValues={motionValues} />
+                    <ResizerTop key={'top'} parentRef={parentRef} parentStyles={targetStyles.current} motionValues={motionValues} />
+                    <ResizerBottom key={'bottom'} parentRef={parentRef} parentStyles={targetStyles.current} motionValues={motionValues} />
                 </>
             }
         </AnimatePresence>

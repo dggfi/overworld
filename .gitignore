@@ -3,6 +3,7 @@ site/*
 src/components/test/*
 out/
 dist/*
+data/*
 
 # Resources
 src/styles/fonts/*

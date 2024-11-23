@@ -7,14 +7,13 @@ import DragBox from './DragBox';
 interface TranslaterProps {
     motionValues: { [key: string]: MotionValue },
     parentRef: Ref<HTMLDivElement>,
-    parentStyles: CSSStyleDeclaration,
     dispatchRegister: MouseDispatchRegister,
     parentId: string,
     controlsActive: boolean,
     siblingSetters: { [key: string]: React.Dispatch<boolean> }
 }
 
-const Translater: React.FC<TranslaterProps> = ({ parentId, controlsActive, parentRef, parentStyles, motionValues, dispatchRegister, siblingSetters }) => {
+const Translater: React.FC<TranslaterProps> = ({ parentId, controlsActive, parentRef, motionValues, dispatchRegister, siblingSetters }) => {
     const [translaterActive, setTranslaterActive] = useState<boolean>(false);
     const focused = useRef<boolean>(false);
 
@@ -99,7 +98,7 @@ const Translater: React.FC<TranslaterProps> = ({ parentId, controlsActive, paren
 
     return (
         <AnimatePresence>
-            {(translaterActive) && <DragBox parentRef={parentRef} parentStyles={parentStyles} motionValues={motionValues} />}
+            {(translaterActive) && <DragBox parentRef={parentRef} motionValues={motionValues} />}
         </AnimatePresence>
     )
 }

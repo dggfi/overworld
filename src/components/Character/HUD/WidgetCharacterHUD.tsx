@@ -40,18 +40,16 @@ export const createWidgetCharacterHUD = (ownerId: string): IWidgetCharacterHUDRe
     profileBorderColor: 'red'
 })
 
-const tempWidgetRecord = createWidgetCharacterHUD('tempOwnerId');
+// const tempWidgetRecord = createWidgetCharacterHUD('tempOwnerId');
 
 const WidgetCharacterHUD: React.FC = () => {
 
     return (
-        <TransformableFrame>
-            <CharacterProfilePicture
-                src={tempWidgetRecord.profileSrc || ''}
-                userHeight={tempWidgetRecord.profileUserHeight || 0}
-                userWidth={tempWidgetRecord.profileUserWidth || 0}
-            />
-        </TransformableFrame>
+        <div className='relative'>
+            <TransformableFrame>
+                <CharacterProfilePicture />
+            </TransformableFrame>
+        </div>
     )
 }
 

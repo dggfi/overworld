@@ -34,16 +34,18 @@ const BoxVariants: Variants = {
 
 interface DragBoxProps {
     parentRef: Ref<HTMLDivElement>,
-    parentStyles: CSSStyleDeclaration,
     motionValues: { [key: string]: MotionValue }
 }
 
-const DragBox: React.FC<DragBoxProps> = ({ parentRef, parentStyles, motionValues }) => {
+const DragBox: React.FC<DragBoxProps> = ({ parentRef, motionValues }) => {
     const [dragging, setDragging] = useState<Boolean>(false);
     const {
         left, right,
         top, bottom
     } = motionValues;
+
+    // @ts-ignore
+    const targetStyles = getComputedStyle(parentRef.current);
 
     const handleMouseDown: MouseEventHandler<HTMLDivElement> = (e) => {
         setDragging(true);
@@ -53,8 +55,8 @@ const DragBox: React.FC<DragBoxProps> = ({ parentRef, parentStyles, motionValues
 
         left.jump(parentRect.left);
         top.jump(parentRect.top);
-        right.jump(parentStyles.right);
-        bottom.jump(parentStyles.bottom);
+        right.jump(targetStyles.right);
+        bottom.jump(targetStyles.bottom);
         typeof right.get() === 'string' && right.set(parseInt(right.get(), 10));
         typeof bottom.get() === 'string' && bottom.set(parseInt(bottom.get(), 10));
 
@@ -74,7 +76,6 @@ const DragBox: React.FC<DragBoxProps> = ({ parentRef, parentStyles, motionValues
             top.set(top.get() + dY);
             right.set(right.get() - dX);
             bottom.set(bottom.get() - dY)
-            console.log(`left: ${left.get()} / right: ${right.get()} \n top: ${top.get()} / bottom: ${bottom.get()}`) 
 
             x = e.clientX;
             y = e.clientY;

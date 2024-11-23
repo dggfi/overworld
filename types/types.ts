@@ -1,4 +1,4 @@
-export {}
+export { }
 
 export interface ExampleInterface {
     foo: 'bar'
@@ -11,8 +11,15 @@ export interface BridgeAPI {
     desktop: boolean
 }
 
+export interface ElectronAPI {
+    showFilePath: (file: File) => string;
+    convertPathToUrl: unknown,
+}
+
 declare global {
     interface Window {
-        myAPI: BridgeAPI
+        myAPI: BridgeAPI,
+        electron: ElectronAPI,
+
     }
 }

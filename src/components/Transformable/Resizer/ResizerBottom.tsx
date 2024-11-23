@@ -51,7 +51,8 @@ const ResizerBottom: React.FC<ResizerBarProps> = ({ parentStyles, parentRef, mot
     const drag = useRef<boolean>(false);
     const {
         top, bottom,
-        height, minHeight
+        height, 
+        minHeight
     } = motionValues;
     const mainRef = useRef<HTMLDivElement>(null!);
     const barRef = useRef<HTMLDivElement>(null!);
@@ -66,7 +67,7 @@ const ResizerBottom: React.FC<ResizerBarProps> = ({ parentStyles, parentRef, mot
 
         const handleOnMouseMove = (e: MouseEvent) => {
             if (!drag.current) return;
-            //@ts-ignore
+            // @ts-ignore
             let rect: DOMRect = parentRef.current.getBoundingClientRect();
             let newHeight = (e.clientY - rect.top);
             if (newHeight < minHeight.get()) {
@@ -77,6 +78,7 @@ const ResizerBottom: React.FC<ResizerBarProps> = ({ parentStyles, parentRef, mot
 
         const handleOnMouseUp = (e: MouseEvent) => {
             setIsActive(false);
+
             window.removeEventListener('mouseup', handleOnMouseUp);
             window.removeEventListener('mousemove', handleOnMouseMove);
         }
